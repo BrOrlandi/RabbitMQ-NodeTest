@@ -1,6 +1,7 @@
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(err, conn) {
+// AMQP IP
+amqp.connect('amqp://10.55.71.212', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var q = 'hello';
 
@@ -10,6 +11,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
         var json = JSON.parse(msg.content.toString());
         console.log("Received: ",json.msg);
         console.log("Value:",json.value);
+        ch.ack(msg);
     })
   });
 });
